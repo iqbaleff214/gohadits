@@ -20,7 +20,7 @@ func rootV1Handler(c *fiber.Ctx) error {
 				"description": "Mengembalikan daftar kitab hadits yang tersedia.",
 			},
 			{
-				"path":        "/api/v1/hadith/{book}",
+				"path":        "/api/v1/hadith/{book}?offset=0&limit=50",
 				"method":      "GET",
 				"description": "Mengembalikan daftar hadits yang terdapat pada kitab yang diminta.",
 			},

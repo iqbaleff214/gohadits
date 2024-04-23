@@ -9,8 +9,8 @@ type Book struct {
 
 // Hadith model to contain hadith text
 type Hadith struct {
-	Number    int    `json:"no"`
-	Text      string `json:"ar"`
+	Number    int    `json:"number"`
+	Text      string `json:"arab"`
 	Translate string `json:"id"`
 }
 

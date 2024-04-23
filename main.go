@@ -32,15 +32,14 @@ func setup() *fiber.App {
 	app.Use(cors.New())
 
 	// route
-	api := app.Group("/api/")
+	api := app.Group("/api")
 
-	// api version 1
-	apiV1 := api.Group("/v1")
-	apiV1.Get("/", rootV1Handler)
+	// api v1
+	api.Get("/v1", rootV1Handler)
 
 	// hadith v1 domain
-	hadithRoute := apiV1.Group("/hadith")
-	hadithRoute.Get("/", hadithHandler.GetAvailableBooks)
+	api.Get("/v1/hadith", hadithHandler.GetAvailableBooks)
+	api.Get("/v1/hadith/:book", hadithHandler.GetHadithByBook)
 
 	return app
 }
