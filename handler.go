@@ -29,6 +29,11 @@ func rootV1Handler(c *fiber.Ctx) error {
 				"method":      "GET",
 				"description": "Returning a specific hadith according to the given hadith number.",
 			},
+			{
+				"path":        "/api/v1/hadith/random",
+				"method":      "GET",
+				"description": "Returning a random hadith.",
+			},
 		},
 	})
 }

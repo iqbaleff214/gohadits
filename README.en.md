@@ -152,6 +152,38 @@ The response will be returned as JSON in case of an error. For example:
 }
 ```
 
+### [GET] /api/v1/hadith/random
+Returning a random hadith.
+
+#### Success response
+The response will be returned an JSON. For example:
+```json
+{
+  "code": 200,
+  "data": {
+    "content": {
+      "number": 5,
+      "arab": "حَدَّثَنَا عَمْرُو بْنُ مَرْزُوقٍ أَخْبَرَنَا شُعْبَةُ عَنْ قَتَادَةَ عَنْ النَّضِرِ بْنِ أَنَسٍ عَنْ زَيْدِ بْنِ أَرْقَمَعَنْ رَسُولِ اللَّهِ صَلَّى اللَّهُ عَلَيْهِ وَسَلَّمَ قَالَ إِنَّ هَذِهِ الْحُشُوشَ مُحْتَضَرَةٌ فَإِذَا أَتَى أَحَدُكُمْ الْخَلَاءَ فَلْيَقُلْ أَعُوذُ بِاللَّهِ مِنْ الْخُبُثِ وَالْخَبَائِثِ",
+      "id": "Telah menceritakan kepada kami [Amru bin Marzuq] telah mengabarkan kepada kami [Syu'bah] dari [Qatadah] dari [an Nadhr bin Anas] dari [Zaid bin Arqam] dari Rasulullah shallallahu 'alaihi wasallam, beliau bersabda: \"Sesungguhnya tempat buang hajat itu dihadiri oleh setan-setan, maka apabila salah seorang dari kalian mendatangi WC, hendaklah dia mengucapkan; 'Aku berlindung kepada Allah dari setan jantan dan setan betina'.\""
+    },
+    "name": "Abu Dawud",
+    "total": 4419
+  },
+  "message": "Hadith no. 5 from book of Abu Dawud successfully retrieved.",
+  "status": "success"
+}
+```
+
+#### Error response
+The response will be returned as JSON in case of an error. For example:
+```json
+{
+  "code": 404,
+  "message": "hadith no. 5000 from book of Abu Dawud is not found",
+  "status": "error"
+}
+```
+
 ## License
 
 GoHadith is open-sourced software licensed under the [MIT license](https://github.com/iqbaleff214/gohadits/blob/main/LICENSE).

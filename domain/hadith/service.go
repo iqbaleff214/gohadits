@@ -2,6 +2,7 @@ package hadith
 
 import (
 	"errors"
+	"math/rand"
 	"strconv"
 )
 
@@ -10,6 +11,7 @@ type Service interface {
 	GetAllAvailableBooks() []Book
 	GetHadithByBook(bookName string, offset, limit int) (Book, []Hadith, error)
 	GetHadithByNumber(bookName string, number int) (Book, Hadith, error)
+	GetHadithRandom() (Book, Hadith, error)
 }
 
 // service as a class
@@ -121,4 +123,19 @@ func (s service) GetHadithByNumber(bookName string, number int) (Book, Hadith, e
 	hadith = hadiths[index]
 
 	return book, hadith, nil
+}
+
+// GetHadithRandom to retrieve a random hadith
+func (s service) GetHadithRandom() (Book, Hadith, error) {
+	books := s.repository.GetAllBook()
+	book := books[randomIntBetween(0, len(books)-1)]
+
+	hadiths := s.repository.GetAllHadith()
+	hadith := hadiths[book.Slug][randomIntBetween(0, book.Size-1)]
+
+	return book, hadith, nil
+}
+
+func randomIntBetween(min, max int) int {
+	return rand.Intn(max-min+1) + min
 }

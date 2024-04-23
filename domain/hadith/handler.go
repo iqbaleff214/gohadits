@@ -1,6 +1,10 @@
 package hadith
 
-import "github.com/gofiber/fiber/v2"
+import (
+	"strconv"
+
+	"github.com/gofiber/fiber/v2"
+)
 
 const (
 	DEFAULT_LIMIT_PER_PAGE int = 50
@@ -12,6 +16,7 @@ type Handler interface {
 	GetAvailableBooks(c *fiber.Ctx) error
 	GetHadithByBook(c *fiber.Ctx) error
 	GetHadithByNumber(c *fiber.Ctx) error
+	GetHadithRandom(c *fiber.Ctx) error
 }
 
 // handler as a class
@@ -78,6 +83,25 @@ func (h handler) GetHadithByNumber(c *fiber.Ctx) error {
 	return c.Status(fiber.StatusOK).JSON(map[string]any{
 		"code":    fiber.StatusOK,
 		"message": "Hadith no. " + c.Params("number") + " from book of " + book.Name + " successfully retrieved.",
+		"status":  "success",
+		"data": map[string]any{
+			"name":    book.Name,
+			"total":   book.Size,
+			"content": hadith,
+		},
+	})
+}
+
+// GET /api/v1/hadith/random
+func (h handler) GetHadithRandom(c *fiber.Ctx) error {
+	book, hadith, err := h.service.GetHadithRandom()
+	if err != nil {
+		return fiber.NewError(fiber.StatusNotFound, err.Error())
+	}
+
+	return c.Status(fiber.StatusOK).JSON(map[string]any{
+		"code":    fiber.StatusOK,
+		"message": "Hadith no. " + strconv.Itoa(hadith.Number) + " from book of " + book.Name + " successfully retrieved.",
 		"status":  "success",
 		"data": map[string]any{
 			"name":    book.Name,
