@@ -17,17 +17,17 @@ func rootV1Handler(c *fiber.Ctx) error {
 			{
 				"path":        "/api/v1/hadith",
 				"method":      "GET",
-				"description": "Mengembalikan daftar kitab hadits yang tersedia.",
+				"description": "Returning a list of available hadith books.",
 			},
 			{
 				"path":        "/api/v1/hadith/{book}?offset=0&limit=50",
 				"method":      "GET",
-				"description": "Mengembalikan daftar hadits yang terdapat pada kitab yang diminta.",
+				"description": "Returning a list of hadiths found in the requested book.",
 			},
 			{
 				"path":        "/api/v1/hadith/{book}/{number}",
 				"method":      "GET",
-				"description": "Mengembalikan hadith spesifik.",
+				"description": "Returning a specific hadith according to the given hadith number.",
 			},
 		},
 	})
