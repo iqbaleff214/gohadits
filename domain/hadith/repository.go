@@ -24,8 +24,9 @@ type repository struct {
 }
 
 // NewRepository is a function to instantiate new repository object
-//  this function also retrieve all content of json files that containing collection of hadith.
-//  retrieved contents stored to repository object properties and used as the data source.
+//
+//	this function also retrieve all content of json files that containing collection of hadith.
+//	retrieved contents stored to repository object properties and used as the data source.
 func NewRepository(data embed.FS) Repository {
 	hadiths := map[string][]Hadith{}
 	books := []Book{}
@@ -54,7 +55,7 @@ func NewRepository(data embed.FS) Repository {
 		books = append(books, Book{
 			Slug: bookName,
 			Size: len(collection),
-			Name: cases.Title(language.BrazilianPortuguese).String(strings.ReplaceAll(bookName, "-", " ")),
+			Name: cases.Title(language.Indonesian).String(strings.ReplaceAll(bookName, "-", " ")),
 		})
 
 		return nil
