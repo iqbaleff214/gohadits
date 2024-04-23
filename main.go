@@ -40,6 +40,7 @@ func setup() *fiber.App {
 	// hadith v1 domain
 	api.Get("/v1/hadith", hadithHandler.GetAvailableBooks)
 	api.Get("/v1/hadith/:book", hadithHandler.GetHadithByBook)
+	api.Get("/v1/hadith/:book/:number", hadithHandler.GetHadithByNumber)
 
 	return app
 }

@@ -11,6 +11,7 @@ const (
 type Handler interface {
 	GetAvailableBooks(c *fiber.Ctx) error
 	GetHadithByBook(c *fiber.Ctx) error
+	GetHadithByNumber(c *fiber.Ctx) error
 }
 
 // handler as a class
@@ -52,11 +53,36 @@ func (h handler) GetHadithByBook(c *fiber.Ctx) error {
 		"message": "Hadith collection of " + book.Name + " successfully retrieved.",
 		"status":  "success",
 		"data": map[string]any{
-			"name":   book.Name,
-			"total":  book.Size,
-			"items":  hadiths,
-			"offset": offset,
-			"limit":  limit,
+			"name":     book.Name,
+			"total":    book.Size,
+			"contents": hadiths,
+			"offset":   offset,
+			"limit":    limit,
+		},
+	})
+}
+
+// GET /api/v1/hadith/:book/:number
+func (h handler) GetHadithByNumber(c *fiber.Ctx) error {
+	bookName := c.Params("book")
+	number, err := c.ParamsInt("number")
+	if err != nil {
+		return fiber.NewError(fiber.StatusBadRequest, "number should be integer")
+	}
+
+	book, hadith, err := h.service.GetHadithByNumber(bookName, number)
+	if err != nil {
+		return fiber.NewError(fiber.StatusNotFound, err.Error())
+	}
+
+	return c.Status(fiber.StatusOK).JSON(map[string]any{
+		"code":    fiber.StatusOK,
+		"message": "Hadith no. " + c.Params("number") + " from book of " + book.Name + " successfully retrieved.",
+		"status":  "success",
+		"data": map[string]any{
+			"name":    book.Name,
+			"total":   book.Size,
+			"content": hadith,
 		},
 	})
 }
